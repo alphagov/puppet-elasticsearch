@@ -12,7 +12,7 @@ class elasticsearch::config (
   $minimum_master_nodes,
   $host,
 ) {
-  $es_home = "/var/apps/elasticsearch-${cluster_name}"
+  $es_home = "/var/lib/elasticsearch-${cluster_name}"
 
   file { $es_home:
     ensure  => 'directory',
