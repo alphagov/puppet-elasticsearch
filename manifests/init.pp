@@ -1,24 +1,52 @@
-# == Class: elasticsearch
-#
-# Full description of class elasticsearch here.
-#
-# === Parameters
-#
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#
 class elasticsearch (
-) inherits elasticsearch::params {
+  $cluster_hosts = ['localhost'],
+  $cluster_name = 'elasticsearch',
+  $heap_size = '512m',
+  $http_port = '9200',
+  $mlock_all = false,
+  $minimum_master_nodes = '1',
+  $host = 'localhost',
+  $number_of_replicas = '1',
+  $number_of_shards = '5',
+  $refresh_interval = '1s',
+  $transport_port = '9300',
+  $version = 'present',
+) {
+  anchor { 'elasticsearch::begin':
+    notify => Class['elasticsearch::service'];
+  }
 
-  # validate parameters here
+  class { 'elasticsearch::package':
+    require => Anchor['elasticsearch::begin'],
+    notify  => Class['elasticsearch::service'],
+    version => $version;
+  }
 
-  anchor { 'elasticsearch::begin': } ->
-  class { 'elasticsearch::install': } ->
-  class { 'elasticsearch::config': }
-  class { 'elasticsearch::service': } ->
+  class { 'elasticsearch::config':
+    cluster_hosts        => $cluster_hosts,
+    cluster_name         => $cluster_name,
+    heap_size            => $heap_size,
+    http_port            => $http_port,
+    mlock_all            => $mlock_all,
+    number_of_replicas   => $number_of_replicas,
+    number_of_shards     => $number_of_shards,
+    refresh_interval     => $refresh_interval,
+    transport_port       => $transport_port,
+    minimum_master_nodes => $minimum_master_nodes,
+    host                 => $host,
+    require              => Class['elasticsearch::package'],
+    notify               => Class['elasticsearch::service'];
+  }
+
+  class { 'elasticsearch::service':
+    cluster_name => $cluster_name,
+    notify       => Anchor['elasticsearch::end'],
+  }
+
   anchor { 'elasticsearch::end': }
 
-  Anchor['elasticsearch::begin']  ~> Class['elasticsearch::service']
-  Class['elasticsearch::install'] ~> Class['elasticsearch::service']
-  Class['elasticsearch::config']  ~> Class['elasticsearch::service']
+  # FIXME: move out of here
+#  class { 'collectd::plugin::elasticsearch':
+#    es_port     => $http_port,
+#  }
 }

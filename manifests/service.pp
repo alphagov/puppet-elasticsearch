@@ -1,15 +1,8 @@
-# == Class elasticsearch::service
-#
-# This class is meant to be called from elasticsearch
-# It ensure the service is running
-#
-class elasticsearch::service {
-  include elasticsearch::params
+# FIXME: make the service name not depend on $cluster_name
+class elasticsearch::service($cluster_name) {
 
-  service { $elasticsearch::params::service_name:
-    ensure     => running,
-    enable     => true,
-    hasstatus  => true,
-    hasrestart => true,
+  service { "elasticsearch-${cluster_name}":
+    ensure => 'running',
   }
+
 }
