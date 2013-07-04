@@ -6,7 +6,7 @@ stop on runlevel [!2345]
 respawn
 respawn limit 5 120
 
-env ES_HOME="/var/apps/elasticsearch-<%= @cluster_name %>"
+env ES_HOME="/var/lib/elasticsearch-<%= @cluster_name %>"
 env ES_HEAP_SIZE="<%= @heap_size %>"
 env ES_PIDFILE="/var/run/elasticsearch/elasticsearch-<%= @cluster_name %>.pid"
 
