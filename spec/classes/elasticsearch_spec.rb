@@ -4,7 +4,7 @@ describe 'elasticsearch', :type => :class do
   let(:params) do
     { :cluster_name => 'foocluster' }
   end
-  home = '/var/apps/elasticsearch-foocluster'
+  home = '/var/lib/elasticsearch-foocluster'
 
   it do
     should contain_package('elasticsearch')
