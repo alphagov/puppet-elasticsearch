@@ -1,10 +1,10 @@
-name          'philandstuff-elasticsearch'
+name          'gdsoperations-elasticsearch'
 version       '0.0.1'
 source        'UNKNOWN'
 author        'philandstuff'
 license       'MIT'
 summary       'UNKNOWN'
-description   'UNKNOWN'
+description   'puppet module for elasticsearch'
 project_page  'UNKNOWN'
 
 dependency 'puppetlabs/stdlib', '>= 3.0.0'
