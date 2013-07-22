@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'elasticsearch::river', :type => :define do
-  content = '{"template": "bazinga"}'
+  content = '{"type": "bazinga"}'
   let(:title) { 'mississippi' }
   let(:params) {{
     :content => content
