@@ -1,3 +1,5 @@
+# == Type: elasticsearch
+#
 class elasticsearch (
   $cluster_hosts = ['localhost'],
   $cluster_name = 'elasticsearch',

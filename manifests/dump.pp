@@ -1,3 +1,8 @@
+# == Type: elasticsearch:dump
+#
+# Installs es_dump_restore gem, and cron job which takes dumps for indexes every
+# 3 hours
+#
 class elasticsearch::dump {
   package { 'es_dump_restore':
     ensure   => '0.0.3',

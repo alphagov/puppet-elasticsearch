@@ -6,7 +6,7 @@
 #
 # [*template_name*]
 #   The name of the template.
-
+#
 # [*content*]
 #   The content to use to create the template. This should be a valid JSON
 #   document.
