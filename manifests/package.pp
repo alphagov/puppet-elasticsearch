@@ -1,3 +1,13 @@
+# == Class elasticsearch::intall
+#
+# This installs elasticsearch package. It also installs estools.
+#
+# === Parameters
+#
+# [*version*]
+#   The version of elasticsearch which will be installed. It is a required
+#   parameter.
+#
 class elasticsearch::package (
   $version = undef,
 ) {
@@ -36,7 +46,7 @@ class elasticsearch::package (
     ensure  => directory,
     owner   => 'elasticsearch',
     group   => 'elasticsearch',
-    require => Package['elasticsearch'], # need to wait for package to create ES user.
+    require => Package['elasticsearch'], # wait for package to create ES user.
   }
 
   # Install the estools package (which we maintain, see

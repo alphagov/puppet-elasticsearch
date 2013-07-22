@@ -22,13 +22,12 @@ define elasticsearch::river (
   case $ensure {
 
     'present': {
+      $river_content = "<<EOS
+${content}
+EOS"
       exec { "create-elasticsearch-river-${river_name}":
-        command  => "es-river create '${river_name}' <<EOS
-${content}
-EOS",
-        unless   => "es-river compare '${river_name}' <<EOS
-${content}
-EOS",
+        command  => "es-river create '${river_name}' ${river_content}",
+        unless   => "es-river compare '${river_name}' ${river_content}",
         # This is required to ensure the correct interpolation of variables in
         # the above commands.
         provider => 'shell',

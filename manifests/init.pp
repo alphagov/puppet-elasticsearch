@@ -1,3 +1,5 @@
+# == Type: elasticsearch
+#
 class elasticsearch (
   $cluster_hosts = ['localhost'],
   $cluster_name = 'elasticsearch',
@@ -45,8 +47,4 @@ class elasticsearch (
 
   anchor { 'elasticsearch::end': }
 
-  # FIXME: move out of here
-#  class { 'collectd::plugin::elasticsearch':
-#    es_port     => $http_port,
-#  }
 }

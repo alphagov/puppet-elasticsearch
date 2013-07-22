@@ -10,6 +10,8 @@ describe 'elasticsearch', :type => :class do
     should contain_package('elasticsearch')
     should contain_file(home)
       .with_ensure('directory')
+    should contain_service('elasticsearch-foocluster').
+      with_ensure('running')
 
     should contain_file("#{home}/config/logging.yml")
 
@@ -28,13 +30,15 @@ describe 'elasticsearch', :type => :class do
     let(:params) do
       {
         :cluster_name => 'foocluster',
-        :cluster_hosts => ['one', 'two', 'three']
+        :cluster_hosts => ['one', 'two', 'three'],
+        :host => 'one'
       }
     end
 
     it do
       should contain_file("#{home}/config/elasticsearch.yml")
         .with_content(/unicast.hosts: \["one", "two", "three"\]/)
+        .with_content(/network\.publish_host: one/)
     end
   end
 
