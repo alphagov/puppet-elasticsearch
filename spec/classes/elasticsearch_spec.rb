@@ -10,6 +10,8 @@ describe 'elasticsearch', :type => :class do
     should contain_package('elasticsearch')
     should contain_file(home)
       .with_ensure('directory')
+    should contain_service('elasticsearch-foocluster').
+      with_ensure('running')
 
     should contain_file("#{home}/config/logging.yml")
 
