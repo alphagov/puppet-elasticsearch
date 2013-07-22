@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe 'elasticsearch', :type => :class do
+  let(:facts) { { :osfamily => "Debian"} }
   let(:params) do
     { :cluster_name => 'foocluster' }
   end

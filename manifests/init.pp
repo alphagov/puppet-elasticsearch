@@ -18,7 +18,7 @@ class elasticsearch (
     notify => Class['elasticsearch::service'];
   }
 
-  class { 'elasticsearch::package':
+  class { 'elasticsearch::install':
     require => Anchor['elasticsearch::begin'],
     notify  => Class['elasticsearch::service'],
     version => $version;
@@ -36,7 +36,7 @@ class elasticsearch (
     transport_port       => $transport_port,
     minimum_master_nodes => $minimum_master_nodes,
     host                 => $host,
-    require              => Class['elasticsearch::package'],
+    require              => Class['elasticsearch::install'],
     notify               => Class['elasticsearch::service'];
   }
 
