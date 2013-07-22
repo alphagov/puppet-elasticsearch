@@ -1,6 +1,7 @@
 require 'spec_helper'
 
-describe 'elasticsearch::package', :type => :class do
+describe 'elasticsearch::install', :type => :class do
+  let(:facts) { { :osfamily => "Debian"} }
   it "should fail when elasticsearch package version not specified" do
     expect {
       should contain_package('elasticsearch')

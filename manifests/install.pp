@@ -1,4 +1,4 @@
-# == Class elasticsearch::intall
+# == Class elasticsearch::install
 #
 # This installs elasticsearch package. It also installs estools.
 #
@@ -8,15 +8,16 @@
 #   The version of elasticsearch which will be installed. It is a required
 #   parameter.
 #
-class elasticsearch::package (
+class elasticsearch::install(
   $version = undef,
-) {
+){
+  include elasticsearch::params
 
   if $version == undef {
     fail('You must provide an elasticsearch version for package installation')
   }
 
-  package { 'elasticsearch':
+  package { $elasticsearch::params::package_name:
     ensure  => $version,
     notify  => Exec['disable-default-elasticsearch'],
   }
