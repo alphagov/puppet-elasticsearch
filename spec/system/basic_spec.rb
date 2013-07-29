@@ -3,7 +3,8 @@ require 'spec_helper_system'
 describe 'basic tests' do
   it 'class should work without errors' do
     pp = <<-EOS
-      class { 'elasticsearch': }
+      ensure_packages(['python-pip'])
+      class { 'elasticsearch': require => Package['python-pip'] }
     EOS
 
     puppet_apply(pp) do |r|
