@@ -28,7 +28,9 @@ class elasticsearch::install(
   # job to manage elasticsearch in elasticsearch::{config,service}
   exec { 'disable-default-elasticsearch':
     onlyif      => '/usr/bin/test -f /etc/init.d/elasticsearch',
-    command     => '/etc/init.d/elasticsearch stop && /bin/rm -f /etc/init.d/elasticsearch && /usr/sbin/update-rc.d elasticsearch remove',
+    command     => "/etc/init.d/elasticsearch stop && \
+          /bin/rm -f /etc/init.d/elasticsearch && \
+          /usr/sbin/update-rc.d elasticsearch remove",
     refreshonly => true,
   }
 
