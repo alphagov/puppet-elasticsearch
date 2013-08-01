@@ -17,6 +17,8 @@ class elasticsearch::install(
     fail('You must provide an elasticsearch version for package installation')
   }
 
+  ensure_packages(['python-pip'])
+
   package { $elasticsearch::params::package_name:
     ensure  => $version,
     notify  => Exec['disable-default-elasticsearch'],
@@ -56,6 +58,7 @@ class elasticsearch::install(
   package { 'estools':
     ensure   => '1.0.3',
     provider => 'pip',
+    require  => Package['python-pip'],
   }
 
 }
