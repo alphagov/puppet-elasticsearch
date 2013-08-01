@@ -9,10 +9,10 @@ describe 'elasticsearch::river', :type => :define do
 
   context "ensure present" do
     it do
-      should contain_exec('create-elasticsearch-river-mississippi')
-        .with_command("es-river create 'mississippi' <<EOS\n#{content}\nEOS")
-        .with_unless("es-river compare 'mississippi' <<EOS\n#{content}\nEOS")
-        .with_provider('shell')
+      should contain_exec('create-elasticsearch-river-mississippi').
+        with_command("es-river create 'mississippi' <<EOS\n#{content}\nEOS").
+        with_unless("es-river compare 'mississippi' <<EOS\n#{content}\nEOS").
+        with_provider('shell')
     end
   end
 
@@ -22,9 +22,9 @@ describe 'elasticsearch::river', :type => :define do
       :ensure  => 'absent'
     }}
     it do
-      should contain_exec('delete-elasticsearch-river-mississippi')
-        .with_command("es-river delete 'mississippi'")
-        .with_onlyif("es-river get 'mississippi'")
+      should contain_exec('delete-elasticsearch-river-mississippi').
+        with_command("es-river delete 'mississippi'").
+        with_onlyif("es-river get 'mississippi'")
     end
   end
 

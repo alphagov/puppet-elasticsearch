@@ -9,22 +9,21 @@ describe 'elasticsearch', :type => :class do
 
   it do
     should contain_package('elasticsearch')
-    should contain_file(home)
-      .with_ensure('directory')
+    should contain_file(home).with_ensure('directory')
     should contain_service('elasticsearch-foocluster').
       with_ensure('running')
 
     should contain_file("#{home}/config/logging.yml")
 
-    should contain_file("#{home}/config/elasticsearch.yml")
-      .with_content(/^\s*cluster.name: foocluster/)
-      .with_content(/multicast.enabled: false/)
-      .with_content(/mlockall: false/)
-      .with_content(/unicast.hosts: \["localhost"\]/)
+    should contain_file("#{home}/config/elasticsearch.yml").
+      with_content(/^\s*cluster.name: foocluster/).
+      with_content(/multicast.enabled: false/).
+      with_content(/mlockall: false/).
+      with_content(/unicast.hosts: \["localhost"\]/)
 
-    should contain_file("/etc/init/elasticsearch-foocluster.conf")
-      .with_content(/ES_HOME="#{home}"/)
-      .with_content(/ES_HEAP_SIZE="512m"/)
+    should contain_file("/etc/init/elasticsearch-foocluster.conf").
+      with_content(/ES_HOME="#{home}"/).
+      with_content(/ES_HEAP_SIZE="512m"/)
   end
 
   context "with a list of cluster_hosts" do
@@ -37,9 +36,9 @@ describe 'elasticsearch', :type => :class do
     end
 
     it do
-      should contain_file("#{home}/config/elasticsearch.yml")
-        .with_content(/unicast.hosts: \["one", "two", "three"\]/)
-        .with_content(/network\.publish_host: one/)
+      should contain_file("#{home}/config/elasticsearch.yml").
+        with_content(/unicast.hosts: \["one", "two", "three"\]/).
+        with_content(/network\.publish_host: one/)
     end
   end
 
@@ -52,8 +51,8 @@ describe 'elasticsearch', :type => :class do
     end
 
     it do
-      should contain_file("#{home}/config/elasticsearch.yml")
-        .with_content(/mlockall: true/)
+      should contain_file("#{home}/config/elasticsearch.yml").
+        with_content(/mlockall: true/)
     end
   end
 
@@ -66,8 +65,8 @@ describe 'elasticsearch', :type => :class do
     end
 
     it do
-      should contain_file("/etc/init/elasticsearch-foocluster.conf")
-        .with_content(/ES_HEAP_SIZE="4g"/)
+      should contain_file("/etc/init/elasticsearch-foocluster.conf").
+        with_content(/ES_HEAP_SIZE="4g"/)
     end
   end
 
