@@ -22,12 +22,12 @@ define elasticsearch::template (
   case $ensure {
 
     'present': {
-      $template_content = "<<EOS
+      $real_content = "<<EOS
 ${content}
 EOS"
       exec { "create-elasticsearch-template-${template_name}":
-        command   => "es-template create '${template_name}' ${template_content}",
-        unless    => "es-template compare '${template_name}' ${template_content}",
+        command   => "es-template create '${template_name}' ${real_content}",
+        unless    => "es-template compare '${template_name}' ${real_content}",
         tries     => '3',
         try_sleep => '30',
         # This is required to ensure the correct interpolation of variables in
