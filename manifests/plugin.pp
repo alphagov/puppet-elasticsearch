@@ -40,6 +40,7 @@ define elasticsearch::plugin (
     command => "/usr/share/elasticsearch/bin/plugin -install ${install_args}",
     unless  => "test -n \"$(ls '${plugin_dir}')\"",
     notify  => Class['elasticsearch::service'],
+    before  => File[$plugin_dir],
     require => Package['elasticsearch'],
   }
 
