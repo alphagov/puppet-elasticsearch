@@ -38,8 +38,9 @@ define elasticsearch::plugin (
 
   exec { "elasticsearch install plugin ${plugin_name}":
     command => "/usr/share/elasticsearch/bin/plugin -install ${install_args}",
-    unless  => "test -n \"$(ls '${plugin_dir}')\"",
+    unless  => "/usr/bin/test -n \"$(ls '${plugin_dir}')\"",
     notify  => Class['elasticsearch::service'],
+    before  => File[$plugin_dir],
     require => Package['elasticsearch'],
   }
 
