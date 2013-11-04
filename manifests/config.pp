@@ -10,6 +10,7 @@ class elasticsearch::config (
   $refresh_interval,
   $transport_port,
   $minimum_master_nodes,
+  $data_directory,
   $host,
 ) {
   $es_home = "/var/lib/elasticsearch-${cluster_name}"
@@ -55,14 +56,14 @@ class elasticsearch::config (
     target => '/usr/share/elasticsearch/plugins',
   }
 
-  file { '/mnt/elasticsearch':
+  file { $data_directory:
     ensure => directory,
     owner  => 'elasticsearch',
   }
 
   file { "${es_home}/data":
     ensure => link,
-    target => '/mnt/elasticsearch',
+    target => $data_directory,
   }
 
   file { "/etc/init/elasticsearch-${cluster_name}.conf":
