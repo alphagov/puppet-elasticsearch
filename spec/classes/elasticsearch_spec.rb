@@ -70,4 +70,17 @@ describe 'elasticsearch', :type => :class do
     end
   end
 
+  context "with custom data dir" do
+    let(:params) do
+      {
+        :data_directory => '/mnt/data/elasticsearch',
+      }
+    end
+
+    it do
+      should contain_file("/mnt/data/elasticsearch").
+        with_ensure('directory')
+    end
+  end
+
 end

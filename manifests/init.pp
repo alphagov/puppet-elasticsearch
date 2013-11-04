@@ -12,6 +12,7 @@ class elasticsearch (
   $number_of_shards = '5',
   $refresh_interval = '1s',
   $transport_port = '9300',
+  $data_directory = '/mnt/elasticsearch',
   $version = 'present',
 ) {
   anchor { 'elasticsearch::begin':
@@ -36,6 +37,7 @@ class elasticsearch (
     transport_port       => $transport_port,
     minimum_master_nodes => $minimum_master_nodes,
     host                 => $host,
+    data_directory       => $data_directory,
     require              => Class['elasticsearch::install'],
     notify               => Class['elasticsearch::service'];
   }
