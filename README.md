@@ -13,6 +13,25 @@ you use
 have written a small guide on how to migrate from the existing module
 to the elasticsearch/elasticsearch module:
 
+### Reinstating the init.d script
+
+This module managed the elasticsearch service using upstart, and so
+removed the init.d script that the package provided to prevent
+confusion.  The elasticsearch/elasticsearch manages the service using
+the init.d script, so you will need to recreate it.  To recover it by
+reinstalling the elasticsearch package, you can use something like
+this:
+
+    exec {'reinstate elasticsearch init script removed by gdsoperations/elasticsearch':
+      command => '/usr/bin/apt-get -o Dpkg::Options::="--force-confmiss" install --reinstall elasticsearch',
+      creates => '/etc/init.d/elasticsearch',
+      before  => Class['::elasticsearch'],
+    }
+
+The `--force-confmiss` option is required because
+`/etc/init.d/elasticsearch` is considered to be a configuration file
+and so won't be recreated on reinstall by default.
+
 ### Migrating the class include itself
 
 If currently have this usage:
